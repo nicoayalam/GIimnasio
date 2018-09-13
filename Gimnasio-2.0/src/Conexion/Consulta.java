@@ -231,12 +231,90 @@ public class Consulta {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return i;
+		return i;		
+	}
+	public ArrayList<String[]> getMembresiaVencida(int idPersona){
+		String sql="SELECT membresia.IdMembresia AS 'Numero Membresia', persona.Nombre, membresia.Tipo, membresia.FechaInicio, membresia.FechaFin"
+				+ " FROM membresia, persona"
+				+ " WHERE membresia.IdPersona = persona.IdPersona AND persona.IdPersona = "+idPersona
+				+ " AND FechaFin>=NOW()";
 		
-		
-		
+		Statement st;
+		ResultSet rs;
+		ArrayList<String[]> membresias = new ArrayList<String[]>();
+		try {
+			Connection con = this.con.getInstance().getConnection();
+			st = con.createStatement();
+			rs= st.executeQuery(sql);
+			while(rs.next()) {
+				String numeroMembresia = rs.getString(1);
+				String nombre = rs.getString(2);
+				String tipo = rs.getString(3);
+				String fechaInicio = rs.getString(4);
+				String fechaFin = rs.getString(5);
+				String[] res ={numeroMembresia,nombre,tipo,fechaInicio,fechaFin};
+				membresias.add(res);
+				}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return membresias;
+	}
+	
+	public ArrayList<String[]> getGrupos()
+	{
+		ArrayList<String[]> grupos = new ArrayList<String[]>();
+		String sql ="SELECT grupo.IdGrupo, persona.Nombre AS 'Instructor', grupo.Horario, sala.Nombre AS 'Nombre Sala', sala.Ubicacion "
+				+ "FROM instructor, persona, grupo, sala, clase "
+				+ "WHERE instructor.IdPersona = persona.IdPersona AND instructor.IdInstructor = grupo.IdInstructor AND grupo.IdClase= clase.IdClase AND clase.IdSala = sala.IdSala";
+		Statement st;
+		ResultSet rs;
+		try {
+			Connection con = this.con.getInstance().getConnection();
+			st = con.createStatement();
+			rs= st.executeQuery(sql);
+			while(rs.next()) {;
+				String idGrupo = rs.getString(1);
+				String nombreInstructor = rs.getString(2);
+				String horario = rs.getString(3);
+				String nombreSala = rs.getString(4);
+				String ubicacion = rs.getString(5);
+				String[] res ={idGrupo,nombreInstructor,horario,nombreSala,ubicacion};
+				grupos.add(res);
+				}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return grupos;
 	}
 		
+	public ArrayList<String[]> getMembresiaActiva(int idPersona){
+		String sql="SELECT membresia.IdMembresia AS 'Numero Membresia', persona.Nombre, membresia.Tipo, membresia.FechaInicio, membresia.FechaFin"
+				+ " FROM membresia, persona"
+				+ " WHERE membresia.IdPersona = persona.IdPersona AND persona.IdPersona = "+idPersona
+				+ " AND FechaFin<NOW()";
+		
+		Statement st;
+		ResultSet rs;
+		ArrayList<String[]> membresias = new ArrayList<String[]>();
+		try {
+			Connection con = this.con.getInstance().getConnection();
+			st = con.createStatement();
+			rs= st.executeQuery(sql);
+			while(rs.next()) {
+				String numeroMembresia = rs.getString(1);
+				String nombre = rs.getString(2);
+				String tipo = rs.getString(3);
+				String fechaInicio = rs.getString(4);
+				String fechaFin = rs.getString(5);
+				String[] res ={numeroMembresia,nombre,tipo,fechaInicio,fechaFin};
+				membresias.add(res);
+				}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return membresias;
+	}
 }
 	
 	

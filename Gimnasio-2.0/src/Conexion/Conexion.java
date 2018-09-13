@@ -12,7 +12,7 @@ public class Conexion {
     private Conexion() throws SQLException {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
-            this.connection = DriverManager.getConnection("jdbc:mariadb://localhost/gimnasio", "root", "");
+            this.connection = DriverManager.getConnection("jdbc:mariadb://localhost/gimnasio bd", "root", "");
             this.connection.setAutoCommit(false);
         } catch (ClassNotFoundException ex) {
             System.out.println("Database Connection Creation Failed : " + ex.getMessage());
