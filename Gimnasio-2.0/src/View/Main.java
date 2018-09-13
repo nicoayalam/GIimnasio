@@ -12,6 +12,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		Consulta cons = new Consulta();
+		
+		
+		cons.insertPersona("Felipe", "America", 546465, 46464);
+		
+		
 		ArrayList<Sala> salas = cons.getSala();
 		Iterator<Sala> it = salas.iterator();
 		while(it.hasNext())
