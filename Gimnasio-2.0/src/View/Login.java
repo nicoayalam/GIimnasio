@@ -25,7 +25,7 @@ public class Login {
 		int eleccion = sc.nextInt();
 		switch (eleccion) {
 		case 1:
-			
+			Instructor();
 			break;
 		case 2:
 			
@@ -39,6 +39,56 @@ public class Login {
 		}
 
 	}
+	public void Instructor()
+	{
+		System.out.println("Elija una opcion:");
+		System.out.println("------------------------------");
+		System.out.println("1. Ver grupos en los que das clase");
+		System.out.println("2. Ver informacion del referente");
+		System.out.println("3. Ver inscritos a la clase");
+		int eleccion = sc.nextInt();
+		switch (eleccion) {
+		case 1:
+			VerGruposInstructor();
+			break;
+		case 2:
+			VerInformacionReferente();
+			break;
+		case 3:
+			Cliente();
+			break;
+
+		default:
+			break;
+		}		
+	}
+	private void VerGruposInstructor() {
+		System.out.println("Introduzca ID instructor");
+		int a = sc.nextInt();
+		
+		ArrayList<String[]> res = cons.getGrupoInstructor(a);
+		Iterator<String[]> it = res.iterator();
+		
+		while (it.hasNext()) {
+			String[] tes = it.next();
+			System.out.println(tes[0]+"/"+tes[1]+"/"+tes[2]+"/"+tes[3]);
+		}
+		
+	}
+	public void VerInformacionReferente () {
+	System.out.println("Introduzca ID instructor");
+	int a = sc.nextInt();
+	
+	ArrayList<String[]> res = cons.getInformacionReferente(a);
+	Iterator<String[]> it = res.iterator();
+	
+	while (it.hasNext()) {
+		String[] tes = it.next();
+		System.out.println(tes[0]+"/"+tes[1]+"/"+tes[2]+"/"+tes[3]);
+	}
+	
+}
+
 	public void Cliente()
 	{
 		System.out.println("Elija una opcion:");

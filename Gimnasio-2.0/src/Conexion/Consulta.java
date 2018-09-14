@@ -315,6 +315,62 @@ public class Consulta {
 		}
 		return membresias;
 	}
+	public ArrayList<String[]> getGrupoInstructor (int idInstructor){
+		String sql = "SELECT grupo.IdGrupo , Horario, Ubicacion, sala.Nombre\r\n" 
+					+ "FROM instructor, grupo, clase, sala\r\n" 
+				    + "WHERE instructor.IdInstructor = grupo.IdInstructor AND grupo.IdClase = clase.IdClase AND sala.IdSala = clase.IdSala AND instructor.IdInstructor ="+idInstructor;
+					
+			Statement st;
+			ResultSet rs;
+			ArrayList<String[]> ClasesInstructos = new ArrayList<String[]> ();
+			
+			try {
+			Connection con = this.con.getInstance().getConnection();
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			while(rs.next()) {
+				String idGrupo = rs.getString(1);
+				String horario = rs.getString(2);
+				String ubicacion = rs.getString(3);
+				String nombre = rs.getString(4);
+				String[] res= {idGrupo,horario,ubicacion,nombre};
+				ClasesInstructos.add(res);
+			}
+			}
+			catch (Exception e) {
+				// TODO: handle exception
+			}
+			return ClasesInstructos;
+	}
+	public ArrayList<String[]> getInformacionReferente (int idInstructor){
+		String sql = "SELECT Nombre, Direccion, telefono, persona.`C.I`\r\n" + 
+				"FROM instructor, persona\r\n" + 
+				"WHERE persona.IdPersona = instructor.IdReferencia AND instructor.IdInstructor="+idInstructor;
+		
+		Statement st;
+		ResultSet rs;
+		ArrayList<String[]> InfoReferente = new ArrayList<String[]> ();
+		
+		try {
+			Connection con = this.con.getInstance().getConnection();
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			
+			while(rs.next()) {
+				String Nombre = rs.getString(1);
+				String Ubicacion = rs.getString(2);
+				String telefono = rs.getString(3);
+				String CI = rs.getString(4);
+				String[] res = {Nombre, Ubicacion, telefono,CI};
+				InfoReferente.add(res);
+			}
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+			return InfoReferente;
+		
+	}
 }
 	
 	
