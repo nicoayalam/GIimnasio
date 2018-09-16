@@ -287,7 +287,32 @@ public class Consulta {
 		}
 		return grupos;
 	}
-		
+		public ArrayList<String[]> getGruposInscritos(int idPersona){
+			String sql = "SELECT grupo.IdGrupo, persona.Nombre, grupo.Horario, sala.Nombre AS 'Nombre Sala', sala.Ubicacion \r\n" + 
+					"FROM instructor, persona, grupo, sala, clase \r\n" + 
+					"WHERE instructor.IdPersona = persona.IdPersona AND instructor.IdInstructor = grupo.IdInstructor AND grupo.IdClase= clase.IdClase AND clase.IdSala = sala.IdSala AND persona.IdPersona ="+idPersona;
+			Statement st;
+			ResultSet rs;
+			ArrayList<String[]> gruposInscritos = new ArrayList<String[]>();
+			try {
+				Connection con = this.con.getInstance().getConnection();
+				st = con.createStatement();
+				rs = st.executeQuery(sql);
+				while(rs.next()) {
+					String idGrupo = rs.getString(1);
+					String Nombre = rs.getString(2);
+					String Horario = rs.getString(3);
+					String NombreSala = rs.getString(4);
+					String Ubicacion = rs.getString(5);
+					String[] res = {idGrupo, Nombre, Horario, NombreSala, Ubicacion};
+					gruposInscritos.add(res);
+					}
+			}
+				catch (Exception e) {
+					// TODO: handle exception
+				}
+				return gruposInscritos;
+		}
 	public ArrayList<String[]> getMembresiaActiva(int idPersona){
 		String sql="SELECT membresia.IdMembresia AS 'Numero Membresia', persona.Nombre, membresia.Tipo, membresia.FechaInicio, membresia.FechaFin"
 				+ " FROM membresia, persona"
@@ -371,7 +396,9 @@ public class Consulta {
 			return InfoReferente;
 		
 	}
-}
+	
+	}
+
 	
 	
 	
