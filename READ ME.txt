@@ -1,3 +1,5 @@
 Este Proyecto esta hecho por los siguientes estudiantes:
 Nicolas Ayala
-PAblo Brañez
+Pablo Brañez
+
+El Trabajo se encuentra en "Gimnasio-2.0", el reporte con los diagramas se encuentra en la carpeta "Reporte"

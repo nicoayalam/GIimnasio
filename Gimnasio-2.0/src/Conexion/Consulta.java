@@ -483,7 +483,7 @@ public class Consulta {
 			// TODO: handle exception
 		}
 		return InfoReferente;
-
+//Prueba
 	}
 
 }
