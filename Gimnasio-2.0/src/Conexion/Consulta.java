@@ -377,9 +377,9 @@ public class Consulta {
 	}
 
 	public ArrayList<String[]> getGruposInscritos(int idPersona) {
-		String sql = "SELECT grupo.IdGrupo, persona.Nombre, grupo.Horario, sala.Nombre AS 'Nombre Sala', sala.Ubicacion \r\n"
-				+ "FROM instructor, persona, grupo, sala, clase \r\n"
-				+ "WHERE instructor.IdPersona = persona.IdPersona AND instructor.IdInstructor = grupo.IdInstructor AND grupo.IdClase= clase.IdClase AND clase.IdSala = sala.IdSala AND persona.IdPersona ="
+		String sql = "SELECT grupo.IdGrupo, ins.Nombre, grupo.Horario, sala.Nombre AS 'Nombre Sala', sala.Ubicacion\r\n" + 
+				"FROM instructor, persona cli, persona ins, grupo, sala, clase, personagrupo\r\n" + 
+				"WHERE instructor.IdPersona = ins.IdPersona AND personagrupo.idGrupo = grupo.IdGrupo AND personagrupo.idPersona= cli.IdPersona AND instructor.IdInstructor = grupo.IdInstructor AND grupo.IdClase= clase.IdClase AND clase.IdSala = sala.IdSala AND cli.IdPersona ="
 				+ idPersona;
 		Statement st;
 		ResultSet rs;

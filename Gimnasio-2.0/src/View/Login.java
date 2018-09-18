@@ -240,7 +240,7 @@ public class Login {
 		case 1:
 			System.out.println("Introduzca ID persona");
 			int c = sc.nextInt();
-			VerGruposIncritos(eleccion);
+			VerGruposIncritos(c);
 			break;
 		case 2:
 			VerGrupos();
